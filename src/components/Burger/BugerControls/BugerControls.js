@@ -10,6 +10,7 @@ const controls = [
 ]
 const BugerControls = (props) => (
     <div className={classes.BugerControls}>
+        Current Price : { props.totalPrice }
         {
            controls.map((control) => {
                return <BuildControl 

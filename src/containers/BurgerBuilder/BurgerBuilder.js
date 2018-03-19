@@ -6,7 +6,10 @@ import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BugerControls/BugerControls';
 
 const INGREDIENTS_PRICE = {
-    salad : 0.6
+    salad : 0.6,
+    meat : 0.4,
+    bacon : 0.8,
+    cheese : 0.7
 }
 
 class BugerBuilder extends Component {
@@ -17,7 +20,8 @@ class BugerBuilder extends Component {
             cheese: 0,
             meat: 0,
             bacon: 0,
-        }
+        },
+        totalPrice: 11
     }
 
     addIngredientHandle = (type) => {
@@ -27,8 +31,11 @@ class BugerBuilder extends Component {
             ...this.state.ingredients
         };
         updatedIngredients[type] = updatedCount;
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + INGREDIENTS_PRICE[type];
         this.setState({
-            ingredients: updatedIngredients
+            ingredients: updatedIngredients,
+            totalPrice: newPrice
         });
     }
 
@@ -42,8 +49,11 @@ class BugerBuilder extends Component {
             ...this.state.ingredients
         };
         updatedIngredients[type] = updatedCount;
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice - INGREDIENTS_PRICE[type];
         this.setState({
-            ingredients: updatedIngredients
+            ingredients: updatedIngredients,
+            totalPrice: newPrice
         });
     }
 
@@ -60,6 +70,7 @@ class BugerBuilder extends Component {
                 <div>
                     <BurgerControls 
                     addIngredient={ this.addIngredientHandle }
+                    totalPrice= { this.state.totalPrice}
                     disabledRemoveIngrediets = { disabledRemoveIngrediets }
                     removeIngredient={ this.removeIngredientHandle }
                     />
